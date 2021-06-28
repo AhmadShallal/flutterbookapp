@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'BaseModel.dart';
 
-Directory docsDir;
+Directory docsDir = '' as Directory;
 
 Future SelectDate( BuildContext inContext , BaseModel inModel , String inDateString) async{
   DateTime initialDate = DateTime.now();
