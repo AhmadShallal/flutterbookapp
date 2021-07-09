@@ -11,10 +11,10 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 class ApiWorker{
-  final String apiUrl = 'api/notes';
+  var apiUrl = 'api/notes';
 
-  Future<List<Note>> getNotes() async {
-    Response res = await get(apiUrl);
+  Future<List<Note>> getAll() async {
+    Response res = await get(Uri.parse(apiUrl));
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
@@ -25,8 +25,8 @@ class ApiWorker{
     }
   }
 
-  Future<Note> getCaseById(String id) async {
-    final response = await get('$apiUrl/$id');
+  Future<Note> getNoteById(int id) async {
+    final response = await get(Uri.parse("$apiUrl/$id"));
 
     if (response.statusCode == 200) {
       return Note.fromJson(json.decode(response.body));
@@ -35,7 +35,7 @@ class ApiWorker{
     }
   }
 
-  Future<Note> createCase(Note note) async {
+  Future<Note> createNote(Note note) async {
     Map data = {
       'title': note.title,
       'content': note.content,
@@ -43,7 +43,7 @@ class ApiWorker{
     };
 
     final Response response = await post(
-      apiUrl,
+      Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -56,7 +56,7 @@ class ApiWorker{
     }
   }
 
-  Future<Note> updateCases(String id, Note note) async {
+  Future<Note> updateNotes(Note note) async {
     Map data = {
       'title': note.title,
       'content': note.content,
@@ -64,7 +64,7 @@ class ApiWorker{
     };
 
     final Response response = await put(
-      '$apiUrl/$id',
+      Uri.parse('$apiUrl'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -77,8 +77,8 @@ class ApiWorker{
     }
   }
 
-  Future<void> deleteCase(String id) async {
-    Response res = await delete('$apiUrl/$id');
+  Future<void> deleteNote(String id) async {
+    Response res = await delete(Uri.parse('$apiUrl/$id'));
 
     if (res.statusCode == 200) {
       print("Case deleted");

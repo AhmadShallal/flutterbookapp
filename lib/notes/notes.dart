@@ -7,17 +7,17 @@ import 'notesModel.dart' show NotesModel, notesModel;
 
 class Notes extends StatelessWidget{
   Notes(){
-    notesModel.loadData("notes",NotesDbWorker.db);
+    notesModel.loadData("notes",ApiWorker);
   }
 
   Widget build(BuildContext inContext){
     return ScopedModel<NotesModel>(
         model: notesModel,
         child: ScopedModelDescendant<NotesModel>(
-          builder: (BuildContext inContext,widget inChild,NotesModel inModel){
+          builder: (BuildContext inContext,Widget inChild,NotesModel inModel){
             return IndexedStack(
               index: inModel.stackIndex,
-              children: [notesList(),notesEntry()],
+              children: [NotesList(),NotesEntry()],
             );
           },
         )

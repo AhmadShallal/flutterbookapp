@@ -10,8 +10,8 @@ import 'appointments/appointments.dart';
 
 void main() {
   startApp() async{
-    Directory docsDirectory = await getApplicationDocumentsDirectory();
-    utils.docsDir = docsDirectory;
+    //Directory docsDirectory = await getApplicationDocumentsDirectory();
+    //utils.docsDir = docsDirectory;
     runApp(FlutterBookApp());
   }
 
